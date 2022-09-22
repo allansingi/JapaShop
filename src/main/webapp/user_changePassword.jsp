@@ -39,6 +39,14 @@
 						<p class="text-center text-danger fs-5">${incorrectOldPassMsg}</p>
 						<c:remove var="incorrectOldPassMsg" scope="session" />
 					</c:if>
+					<c:if test="${not empty passwordNotValidMsg}">
+						<p class="text-center text-danger fs-3">${passwordNotValidMsg}</p>
+						<c:remove var="passwordNotValidMsg" scope="session"/>
+					</c:if>
+					<c:if test="${not empty passwordsDontMatch}">
+						<p class="text-center text-danger fs-3">${passwordsDontMatch}</p>
+						<c:remove var="passwordsDontMatch" scope="session"/>
+					</c:if>
 					
 					<div class="card-body">
 						<form action="./userChangePasswordServlet" method="post">
@@ -46,7 +54,10 @@
 								<label>Enter Old Password</label> <input type="password" name="oldPassword" class="form-control" required>
 							</div>
 							<div class="mb-3">
-								<label>Enter New Password</label> <input type="password" name="newPassword" class="form-control" required>
+								<label>Enter New Password</label> <input type="password" name="newPassword1" class="form-control" required>
+							</div>
+							<div class="mb-3">
+								<label>Confirm New Password</label> <input type="password" name="newPassword2" class="form-control" required>
 							</div>
 							<input type="hidden" value="${userObj.email}" name="email">
 							<button class="btn btn-dark col-md-12">Change Password</button>

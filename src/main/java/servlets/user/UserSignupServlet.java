@@ -30,23 +30,29 @@ public class UserSignupServlet extends HttpServlet {
 			String mobileNumber = req.getParameter("mobileNumber");
 			String securityQuestion = req.getParameter("securityQuestion");
 			String answer = req.getParameter("answer");
-			String password = req.getParameter("password");
+			String password1 = req.getParameter("password1");
+			String password2 = req.getParameter("password2");
 			String address = "";
 			String city = "";
 			String state = "";
 			String country = "";
 			
-			User user = new User(name, email, mobileNumber, securityQuestion, answer, password, address, city, state, country);
+			User user = new User(name, email, mobileNumber, securityQuestion, answer, password1, address, city, state, country);
 			UserDao dao = new UserDao(DBConnection.getConn());
 			
 			HttpSession session = req.getSession();
 			if(EmailValidador.isValid(email)) {
-				if(PasswordValidator.isValid(password)) {
-					if(dao.signup(user)) {
-						session.setAttribute("userRegSuccessMsg", "User Registered Successfully!");
-						resp.sendRedirect("login_index.jsp");
+				if(PasswordValidator.isValid(password1) && PasswordValidator.isValid(password2)) {
+					if(password1.equals(password2)) {
+						if(dao.signup(user)) {
+							session.setAttribute("userRegSuccessMsg", "User Registered Successfully!");
+							resp.sendRedirect("login_index.jsp");
+						} else {
+							session.setAttribute("userRegErrorMsg", "Something went wrong on server...");
+							resp.sendRedirect("user_signup.jsp");
+						}
 					} else {
-						session.setAttribute("userRegErrorMsg", "Something went wrong on server...");
+						session.setAttribute("passwordsDontMatch", "Password fields don't match, try again");
 						resp.sendRedirect("user_signup.jsp");
 					}
 				} else {

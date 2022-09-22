@@ -35,6 +35,10 @@
 							<p class="text-center text-danger fs-3">${passwordNotValidMsg}</p>
 							<c:remove var="passwordNotValidMsg" scope="session"/>
 						</c:if>
+						<c:if test="${not empty passwordsDontMatch}">
+							<p class="text-center text-danger fs-3">${passwordsDontMatch}</p>
+							<c:remove var="passwordsDontMatch" scope="session"/>
+						</c:if>
 
 						<form action="userSignupServlet" method="post">
 							<div class="mb-3">
@@ -65,7 +69,11 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Password</label>
-								<input class="form-control" type="password" name="password" placeholder="Enter Password" required>
+								<input class="form-control" type="password" name="password1" placeholder="Enter Password" required>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Confirm Password</label>
+								<input class="form-control" type="password" name="password2" placeholder="Re-Enter Password" required>
 							</div>
 							<button type="submit" class="btn bg-dark text-white col-md-12">Register</button>
 						</form>

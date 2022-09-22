@@ -27,6 +27,14 @@
 							<p class="text-center text-danger fs-3">${incorrectInfDataMsg}</p>
 							<c:remove var="incorrectInfDataMsg" scope="session" />
 						</c:if>
+						<c:if test="${not empty passwordNotValidMsg}">
+							<p class="text-center text-danger fs-3">${passwordNotValidMsg}</p>
+							<c:remove var="passwordNotValidMsg" scope="session"/>
+						</c:if>
+						<c:if test="${not empty passwordsDontMatch}">
+							<p class="text-center text-danger fs-3">${passwordsDontMatch}</p>
+							<c:remove var="passwordsDontMatch" scope="session"/>
+						</c:if>
 
 						<form action="userForgotPasswordServlet" method="post">
 							<div class="mb-3">
@@ -43,7 +51,7 @@
 									<option selected>Select one of the questions</option>
 									<option value="What is the name of your first pet?">What is the name of your first pet?</option>
 									<option value="What was your first car?">What was your first car?</option>
-									<option value="What is your favorite colour?">What is your favorite color?</option>
+									<option value="What is your favorite color?">What is your favorite color?</option>
 									<option value="What was your first nickname?">What was your first nickname?</option>
 								</select>
 							</div>
@@ -53,7 +61,11 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">New Password</label>
-								<input class="form-control" type="password" name="newPassword" placeholder="Enter New Password" required>
+								<input class="form-control" type="password" name="newPassword1" placeholder="Enter New Password" required>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">New Password</label>
+								<input class="form-control" type="password" name="newPassword2" placeholder="Confirm New Password" required>
 							</div>
 							<button type="submit" class="btn bg-dark text-white col-md-12">Recall</button>
 						</form>
