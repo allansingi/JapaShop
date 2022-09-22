@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import dao.UserDao;
 import db.DBConnection;
 import entity.User;
+import util.EmailValidador;
+import util.PasswordValidator;
 
 /**
  * Triggers the "Signup" button from USER side in user signup page
@@ -36,14 +38,23 @@ public class UserSignupServlet extends HttpServlet {
 			
 			User user = new User(name, email, mobileNumber, securityQuestion, answer, password, address, city, state, country);
 			UserDao dao = new UserDao(DBConnection.getConn());
-			boolean flag = dao.signup(user);
 			
 			HttpSession session = req.getSession();
-			if(flag) {
-				session.setAttribute("userRegSuccessMsg", "User Registered Successfully!");
-				resp.sendRedirect("login_index.jsp");
+			if(EmailValidador.isValid(email)) {
+				if(PasswordValidator.isValid(password)) {
+					if(dao.signup(user)) {
+						session.setAttribute("userRegSuccessMsg", "User Registered Successfully!");
+						resp.sendRedirect("login_index.jsp");
+					} else {
+						session.setAttribute("userRegErrorMsg", "Something went wrong on server...");
+						resp.sendRedirect("user_signup.jsp");
+					}
+				} else {
+					session.setAttribute("passwordNotValidMsg", "The password doesn't reach minimum requirements, try again");
+					resp.sendRedirect("user_signup.jsp");
+				}
 			} else {
-				session.setAttribute("userRegErrorMsg", "Something went wrong on server...");
+				session.setAttribute("emailNotValidMsg", "The email is not valid, try again");
 				resp.sendRedirect("user_signup.jsp");
 			}
 		} catch (Exception e) {

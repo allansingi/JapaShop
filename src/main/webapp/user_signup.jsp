@@ -27,6 +27,14 @@
 							<p class="text-center text-danger fs-3">${userRegErrorMsg}</p>
 							<c:remove var="userRegErrorMsg" scope="session"/>
 						</c:if>
+						<c:if test="${not empty emailNotValidMsg}">
+							<p class="text-center text-danger fs-3">${emailNotValidMsg}</p>
+							<c:remove var="emailNotValidMsg" scope="session"/>
+						</c:if>
+						<c:if test="${not empty passwordNotValidMsg}">
+							<p class="text-center text-danger fs-3">${passwordNotValidMsg}</p>
+							<c:remove var="passwordNotValidMsg" scope="session"/>
+						</c:if>
 
 						<form action="userSignupServlet" method="post">
 							<div class="mb-3">
@@ -35,7 +43,7 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Email address</label>
-								<input class="form-control" type="email" name="email" placeholder="Enter Email" required>
+								<input class="form-control" type="text" name="email" placeholder="Enter Email" required>
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Mobile Number</label>
