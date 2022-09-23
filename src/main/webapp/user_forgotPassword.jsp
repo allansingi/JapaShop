@@ -64,7 +64,7 @@
 								<input class="form-control" type="password" name="newPassword1" placeholder="Enter New Password" required>
 							</div>
 							<div class="mb-3">
-								<label class="form-label">New Password</label>
+								<label class="form-label">Confirm Password</label>
 								<input class="form-control" type="password" name="newPassword2" placeholder="Confirm New Password" required>
 							</div>
 							<button type="submit" class="btn bg-dark text-white col-md-12">Recall</button>
